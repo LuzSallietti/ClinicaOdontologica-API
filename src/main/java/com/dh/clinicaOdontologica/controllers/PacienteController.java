@@ -1,11 +1,9 @@
 package com.dh.clinicaOdontologica.controllers;
 
-import com.dh.clinicaOdontologica.controllers.dominio.Paciente;
+import com.dh.clinicaOdontologica.model.Paciente;
 import com.dh.clinicaOdontologica.services.PacienteService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

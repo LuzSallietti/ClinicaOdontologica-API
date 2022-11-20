@@ -1,7 +1,6 @@
-package com.dh.clinicaOdontologica.controllers.dominio;
+package com.dh.clinicaOdontologica.model;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public class Paciente {
     private int id;

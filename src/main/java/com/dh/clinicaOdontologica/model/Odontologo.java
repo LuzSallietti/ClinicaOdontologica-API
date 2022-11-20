@@ -1,4 +1,4 @@
-package com.dh.clinicaOdontologica.controllers.dominio;
+package com.dh.clinicaOdontologica.model;
 
 public class Odontologo {
     private Integer id;

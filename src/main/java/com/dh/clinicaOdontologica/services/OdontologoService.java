@@ -1,9 +1,7 @@
 package com.dh.clinicaOdontologica.services;
 
-import com.dh.clinicaOdontologica.controllers.dominio.Odontologo;
-import com.dh.clinicaOdontologica.controllers.dominio.Paciente;
+import com.dh.clinicaOdontologica.model.Odontologo;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -13,7 +13,7 @@ import java.util.List;
 public class PacienteController {
     private PacienteService pacienteService = new PacienteService();
 
-    //puedo crear este getter para acceder al servicio desde HomeController?
+
     public PacienteService getPacienteService() {
         return pacienteService;
     }

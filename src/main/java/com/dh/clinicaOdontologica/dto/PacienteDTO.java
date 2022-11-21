@@ -1,8 +1,14 @@
-package com.dh.clinicaOdontologica.model;
+package com.dh.clinicaOdontologica.dto;
+import com.dh.clinicaOdontologica.model.Domicilio;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.time.LocalDate;
 
-public class Paciente {
+//anotacion que nos sirve para indicarle a Jackson, que ignore el resto de atributos que tiene la entidad y que no están en el DTO.
+@JsonIgnoreProperties(ignoreUnknown = true)
+
+
+public class PacienteDTO {
     private int id;
     private String nombre;
     private String apellido;
@@ -10,18 +16,10 @@ public class Paciente {
     private String email;
     private LocalDate fechaAlta;
     private Domicilio domicilio;
-    //por ahora al domicilio no se lo paso en el constructor, solo lo implemente en setter y getter
-
-    //segun ejercicio de la clase integradora del 11/11, el paciente tambien tiene asignado un odontologo
 
 
-    public Paciente(int id, String nombre, String apellido, int dni, String email, LocalDate fechaAlta) {
-        this.id = id;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.dni = dni;
-        this.email = email;
-        this.fechaAlta = fechaAlta;
+    //Debemos tener 1 constructor vacio
+    public PacienteDTO() {
     }
 
     public int getId() {
@@ -70,7 +68,6 @@ public class Paciente {
 
     public void setFechaAlta(LocalDate fechaAlta) {
         this.fechaAlta = fechaAlta;
-
     }
 
     public Domicilio getDomicilio() {
@@ -80,16 +77,6 @@ public class Paciente {
     public void setDomicilio(Domicilio domicilio) {
         this.domicilio = domicilio;
     }
-
-    @Override
-    public String toString() {
-        return "Paciente{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", apellido='" + apellido + '\'' +
-                ", dni=" + dni +
-                ", email='" + email + '\'' +
-                ", fechaAlta=" + fechaAlta +
-                '}';
-    }
 }
+
+

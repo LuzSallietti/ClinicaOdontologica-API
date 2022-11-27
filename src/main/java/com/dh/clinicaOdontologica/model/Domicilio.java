@@ -1,13 +1,31 @@
 package com.dh.clinicaOdontologica.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.util.Set;
+import javax.persistence.*;
+@Entity
+@Table(name="domicilios")
+
 public class Domicilio {
-    private int id;
+    @Id
+    @GeneratedValue
+    private Long id;
     private String calle;
     private int numero;
     private String localidad;
     private String provincia;
 
-    public Domicilio(int id, String calle, int numero, String localidad, String provincia) {
+    //un domicilio puede corresponder a muchos (varios) Pacientes en relacion bidireccional
+    @OneToMany(mappedBy = "domicilio")
+    @JsonIgnore
+    private Set<Paciente> pacientes;
+
+    public Domicilio(){
+
+    }
+
+    public Domicilio(Long id, String calle, int numero, String localidad, String provincia) {
         this.id = id;
         this.calle = calle;
         this.numero = numero;
@@ -15,11 +33,11 @@ public class Domicilio {
         this.provincia = provincia;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -53,6 +71,14 @@ public class Domicilio {
 
     public void setProvincia(String provincia) {
         this.provincia = provincia;
+    }
+
+    public Set<Paciente> getPacientes() {
+        return pacientes;
+    }
+
+    public void setPacientes(Set<Paciente> pacientes) {
+        this.pacientes = pacientes;
     }
 
     @Override

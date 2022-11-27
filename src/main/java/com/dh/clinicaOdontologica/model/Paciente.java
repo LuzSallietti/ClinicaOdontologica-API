@@ -1,21 +1,39 @@
 package com.dh.clinicaOdontologica.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.time.LocalDate;
+import java.util.Set;
+import javax.persistence.*;
+@Entity
+@Table(name="pacientes")
 
 public class Paciente {
-    private int id;
+    @Id
+    @GeneratedValue
+    private Long id;
     private String nombre;
     private String apellido;
     private int dni;
     private String email;
     private LocalDate fechaAlta;
+
+    //el Paciente tiene un domicilio en una relacion bidireccional?
+    @ManyToOne
+    @JoinColumn(name="paciente_id", nullable = false)
     private Domicilio domicilio;
-    //por ahora al domicilio no se lo paso en el constructor, solo lo implemente en setter y getter
-
-    //segun ejercicio de la clase integradora del 11/11, el paciente tambien tiene asignado un odontologo
 
 
-    public Paciente(int id, String nombre, String apellido, int dni, String email, LocalDate fechaAlta) {
+    // el Paciente tiene un Set de Turnos en relacion bidireccional?
+    @OneToMany(mappedBy = "paciente")
+    @JsonIgnore
+    private Set<Turno> turnos;
+
+
+    public Paciente(){
+
+    }
+    public Paciente(Long id, String nombre, String apellido, int dni, String email, LocalDate fechaAlta) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -24,11 +42,11 @@ public class Paciente {
         this.fechaAlta = fechaAlta;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -79,6 +97,14 @@ public class Paciente {
 
     public void setDomicilio(Domicilio domicilio) {
         this.domicilio = domicilio;
+    }
+
+    public Set<Turno> getTurnos() {
+        return turnos;
+    }
+
+    public void setTurnos(Set<Turno> turnos) {
+        this.turnos = turnos;
     }
 
     @Override

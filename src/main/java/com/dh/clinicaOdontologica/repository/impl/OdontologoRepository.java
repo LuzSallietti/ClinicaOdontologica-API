@@ -1,11 +1,9 @@
 package com.dh.clinicaOdontologica.repository.impl;
 
 import com.dh.clinicaOdontologica.model.Odontologo;
-import com.dh.clinicaOdontologica.repository.IRepository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class OdontologoRepository implements IRepository<Odontologo> {
     //por ahora estoy creando un repostorio/BD ficticio de odontologos como atributo
@@ -39,7 +37,7 @@ public class OdontologoRepository implements IRepository<Odontologo> {
     }
 
     @Override
-    public Boolean eliminar(Integer id) {
+    public Boolean eliminar(Long id) {
         for (Odontologo odontologo : odontologos) {
             if (odontologo.getId() == id){
                 odontologos.remove(odontologo);
@@ -51,7 +49,7 @@ public class OdontologoRepository implements IRepository<Odontologo> {
     }
 
     @Override
-    public Odontologo buscar(Integer id) {
+    public Odontologo buscar(Long id) {
         Odontologo odontologo = null;
         for (Odontologo o : odontologos) {
             if(o.getId() == id){
@@ -63,8 +61,8 @@ public class OdontologoRepository implements IRepository<Odontologo> {
 
     private List<Odontologo> cargarOdontologos(){
         List<Odontologo> odontologossCargados = new ArrayList<>();
-        Odontologo od1 = new Odontologo(1,"Lola","Lopez",2407);
-        Odontologo od2 = new Odontologo(2,"Camila", "Suarez",7845);
+        Odontologo od1 = new Odontologo(1L,"Lola","Catala",2547);
+        Odontologo od2 = new Odontologo(2L,"Camila", "Suarez",7845);
         odontologossCargados.add(od1);
         odontologossCargados.add(od2);
         return odontologossCargados;

@@ -1,12 +1,26 @@
 package com.dh.clinicaOdontologica.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import java.util.Set;
+import javax.persistence.*;
+
+@Entity
+@Table(name = "odontologos")
 public class Odontologo {
-    private Integer id;
+    @Id
+    @GeneratedValue
+    private Long id;
     private String nombre;
     private String apellido;
     private Integer matricula;
+    // el odontologo tiene un Set de Turnos en relacion bidireccional?
+    @OneToMany(mappedBy = "odontologo")
+    @JsonIgnore
+    private Set <Turno> turnos;
 
-    public Odontologo(Integer id, String nombre, String apellido, Integer matricula) {
+    public Odontologo(Long id, String nombre, String apellido, Integer matricula) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -17,7 +31,7 @@ public class Odontologo {
     }
 
     //no es buena practica tener este getId pero lo uso de manera temporal
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
@@ -44,6 +58,14 @@ public class Odontologo {
 
     public void setMatricula(Integer matricula) {
         this.matricula = matricula;
+    }
+
+    public Set<Turno> getTurnos() {
+        return turnos;
+    }
+
+    public void setTurnos(Set<Turno> turnos) {
+        this.turnos = turnos;
     }
 
     @Override

@@ -19,7 +19,7 @@ public class PacienteService implements IPacienteService {
     @Autowired
     ObjectMapper mapper;
 
-    public void guardarPaciente(PacienteDTO pacienteDTO){
+    private void guardarPaciente(PacienteDTO pacienteDTO){
         Paciente paciente = mapper.convertValue(pacienteDTO, Paciente.class);
         pacienteRepository.save(paciente);
     }

@@ -20,7 +20,7 @@ public class OdontologoService implements IOdontologoService {
     ObjectMapper mapper;
 
 //metodo reutilizable para CREAR y MODIFICAR
-    public void guardarOdontologo(OdontologoDTO odontologoDTO){
+    private void guardarOdontologo(OdontologoDTO odontologoDTO){
         Odontologo odontologo = mapper.convertValue(odontologoDTO, Odontologo.class);
         odontologoRepository.save(odontologo);
     }

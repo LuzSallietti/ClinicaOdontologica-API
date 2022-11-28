@@ -20,7 +20,7 @@ public class DomicilioService implements IDomicilioService {
     @Autowired
     ObjectMapper mapper;
 
-    public void guardarDomicilio(DomicilioDTO domicilioDTO){
+    private void guardarDomicilio(DomicilioDTO domicilioDTO){
         Domicilio domicilio = mapper.convertValue(domicilioDTO, Domicilio.class);
         domicilioRepository.save(domicilio);
     }

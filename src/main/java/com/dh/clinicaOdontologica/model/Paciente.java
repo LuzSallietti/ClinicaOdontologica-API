@@ -20,7 +20,7 @@ public class Paciente {
 
     //el Paciente tiene un domicilio en una relacion bidireccional?
     @ManyToOne
-    @JoinColumn(name="paciente_id", nullable = false)
+    @JoinColumn(name="domicilio_id", nullable = false)
     private Domicilio domicilio;
 
 

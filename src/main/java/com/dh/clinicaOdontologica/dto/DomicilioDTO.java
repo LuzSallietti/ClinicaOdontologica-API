@@ -1,13 +1,11 @@
 package com.dh.clinicaOdontologica.dto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import java.time.LocalDate;
-
 //anotacion que nos sirve para indicarle a Jackson, que ignore el resto de atributos que tiene la entidad y que no están en el DTO.
 @JsonIgnoreProperties(ignoreUnknown = true)
 
 public class DomicilioDTO {
-    private int id;
+    private Long id;
     private String calle;
     private int numero;
     private String localidad;
@@ -17,11 +15,11 @@ public class DomicilioDTO {
     public DomicilioDTO() {
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

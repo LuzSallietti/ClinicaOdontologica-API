@@ -20,7 +20,7 @@ public class TurnoService implements ITurnoService{
     @Autowired
     ObjectMapper mapper;
 
-    public void guardarTurno(TurnoDTO turnoDTO){
+    private void guardarTurno(TurnoDTO turnoDTO){
         Turno turno = mapper.convertValue(turnoDTO, Turno.class);
         turnoRepository.save(turno);
     }

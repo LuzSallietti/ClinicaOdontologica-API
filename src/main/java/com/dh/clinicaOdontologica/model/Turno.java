@@ -61,4 +61,15 @@ public class Turno {
     public void setHora(String hora) {
         this.hora = hora;
     }
+
+    @Override
+    public String toString() {
+        return "Turno{" +
+                "id=" + id +
+                ", paciente=" + paciente +
+                ", odontologo=" + odontologo +
+                ", fecha=" + fecha +
+                ", hora='" + hora + '\'' +
+                '}';
+    }
 }

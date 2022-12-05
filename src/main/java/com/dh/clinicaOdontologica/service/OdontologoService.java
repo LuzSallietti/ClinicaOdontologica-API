@@ -4,6 +4,7 @@ import com.dh.clinicaOdontologica.dto.OdontologoDTO;
 import com.dh.clinicaOdontologica.model.Odontologo;
 import com.dh.clinicaOdontologica.repository.IOdontologoRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ public class OdontologoService implements IOdontologoService {
     //tiene como atributo EL REPOSITORY > se inyecta como dependencia
     @Autowired
     private IOdontologoRepository odontologoRepository;
+    private final static Logger logger = Logger.getLogger(DomicilioService.class);
 
     //inyectar el Mapper
     @Autowired
@@ -23,6 +25,7 @@ public class OdontologoService implements IOdontologoService {
     private void guardarOdontologo(OdontologoDTO odontologoDTO){
         Odontologo odontologo = mapper.convertValue(odontologoDTO, Odontologo.class);
         odontologoRepository.save(odontologo);
+        logger.info("SAVING ODONTOLOGO: " + odontologoDTO);
     }
 
     @Override
@@ -36,6 +39,7 @@ public class OdontologoService implements IOdontologoService {
         OdontologoDTO odontologoDTO = null;
         if(odontologo.isPresent()){
             odontologoDTO = mapper.convertValue(odontologo, OdontologoDTO.class);
+            logger.info("GETTING ODONTOLOGO BY ID : "+id + " = " + odontologoDTO);
         }
         return odontologoDTO;
     }
@@ -49,6 +53,7 @@ public class OdontologoService implements IOdontologoService {
     @Override
     public void eliminarOdontologo(Long id) {
         odontologoRepository.deleteById(id);
+        logger.info("DELETING ODONTOLOGO id: " + id);
     }
 
     @Override
@@ -59,6 +64,7 @@ public class OdontologoService implements IOdontologoService {
         for (Odontologo odontologo : odontologos) {
             odontologoDTOS.add(mapper.convertValue(odontologo, OdontologoDTO.class));
         }
+        logger.info("GETTING ALL ODONTOLOGOS: " + odontologoDTOS);
         return odontologoDTOS;
     }
 }

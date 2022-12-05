@@ -26,7 +26,7 @@ public class DomicilioService implements IDomicilioService {
     private void guardarDomicilio(DomicilioDTO domicilioDTO){
         Domicilio domicilio = mapper.convertValue(domicilioDTO, Domicilio.class);
         domicilioRepository.save(domicilio);
-        logger.info("SAVING: " + domicilioDTO);
+        logger.info("SAVING DOMICILIO: " + domicilioDTO);
     }
 
     @Override
@@ -40,7 +40,7 @@ public class DomicilioService implements IDomicilioService {
         DomicilioDTO domicilioDTO = null;
         if(domicilio.isPresent()){
             domicilioDTO = mapper.convertValue(domicilio, DomicilioDTO.class);
-            logger.info("GETTING BY ID : "+id + " = " + domicilioDTO);
+            logger.info("GETTING DOMICILIO BY ID : "+id + " = " + domicilioDTO);
         }
         return domicilioDTO;
     }

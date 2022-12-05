@@ -3,6 +3,7 @@ package com.dh.clinicaOdontologica.controller;
 
 import com.dh.clinicaOdontologica.dto.DomicilioDTO;
 import com.dh.clinicaOdontologica.dto.TurnoDTO;
+import com.dh.clinicaOdontologica.model.Turno;
 import com.dh.clinicaOdontologica.service.ITurnoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

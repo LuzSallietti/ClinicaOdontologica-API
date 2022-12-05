@@ -2,6 +2,7 @@ package com.dh.clinicaOdontologica.service;
 
 import com.dh.clinicaOdontologica.dto.DomicilioDTO;
 import com.dh.clinicaOdontologica.dto.TurnoDTO;
+import com.dh.clinicaOdontologica.model.Turno;
 
 import java.util.Set;
 

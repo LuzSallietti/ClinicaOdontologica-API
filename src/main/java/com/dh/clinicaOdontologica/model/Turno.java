@@ -10,10 +10,10 @@ public class Turno {
     @Id
     @GeneratedValue
     private Long id;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="paciente_id", nullable = false)
     private Paciente paciente;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="odontologo_id", nullable = false)
     private Odontologo odontologo;
     private LocalDate fecha;
@@ -28,6 +28,14 @@ public class Turno {
         this.odontologo = odontologo;
         this.fecha = fecha;
         this.hora = hora;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Paciente getPaciente() {

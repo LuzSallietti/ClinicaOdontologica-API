@@ -1,42 +1,34 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <title>ABM Estudiantes</title>
+    <title>CRUD Clinica Odontologica</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/js/post_students.js"></script>
+    <script type="text/javascript" src="/js/post_odontologo.js"></script>
 </head>
 <body>
-<div class="container">
-    <ul class="nav nav-pills">
+<div class="container text-center">
+    <h1 class="pt-4 fs-2">Clínica Odontológica</h1>
+    <h2 class="pb-4 fs-3">Sistema de administración</h2>
+    <ul class="nav flex-column nav-pills">
         <li class="nav-item">
-            <a class="nav-link" href="./odontologoList.html">Listado Odontologos</a>
-            <a class="nav-link" href="./odontologoAlta.html">Alta Odontologos</a>
+            <a class="nav-link active" href="/odontologos.html">👩‍⚕️ Odontólogos </a>
         </li>
-    </ul>
-    <ul class="nav nav-pills">
+        <li class="nav-item bg-grey">
+            <a class="nav-link" href="/pacientes.html">🦷 Pacientes</a>
+        </li>
         <li class="nav-item">
-            <a class="nav-link" href="./pacienteList.html">Listado Pacientes</a>
-            <a class="nav-link" href="./pacienteAlta.html">Alta Pacientes</a>
+            <a class="nav-link" href="/turnos.html">📅 Turnos </a>
         </li>
-    </ul>
-    <ul class="nav nav-pills">
         <li class="nav-item">
-            <a class="nav-link" href="./turnoList.html">Listado Turnos</a>
-            <a class="nav-link" href="./turnoAlta.html">Alta Turnos</a>
+            <a class="nav-link" href="/domicilios.html">🏘 Domicilios</a>
         </li>
-    </ul>
-    <ul class="nav nav-pills">
-        <li class="nav-item">
-            <a class="nav-link" href="./domicilioList.html">Listado Domicilios</a>
-            <a class="nav-link" href="./domicilioAlta.html">Alta Domicilios</a>
-        </li>
-    </ul>
-    <hr>
+    </ul>   
+    <hr>    
 </div>
 </body>
 </html>

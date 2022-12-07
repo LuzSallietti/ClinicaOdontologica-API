@@ -1,5 +1,7 @@
 package com.dh.clinicaOdontologica.model;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
+
 import java.sql.Time;
 import java.time.LocalDate;
 import javax.persistence.*;

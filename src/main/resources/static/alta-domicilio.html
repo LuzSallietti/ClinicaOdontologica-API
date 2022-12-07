@@ -8,19 +8,22 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/js/altaDomicilio.js"></script>
+    <script type="text/javascript" src="js/post_Domicilio.js"></script>
 </head>
 <body>
 <div class="container">
     <ul class="nav nav-pills">
         <li class="nav-item">
-            <a class="nav-link" href="./domicilioList.html">Administración de Domicilios</a>
+            <a class="nav-link" href="/index.html">Inicio</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="./domicilios.html">Administración de Domicilios</a>
         </li>
     </ul>
     <div class="row">
         <div class="col-sm-7" style="background-color:#e6fffa; padding:10px; border-radius:3px">
             <h3>Agregar Domicilio</h3>
-            <form id="add_new_student">
+            <form id="add_new_address">
                 <div class="form-group">
                     <label class="control-label" for="calle">Calle:</label>
                     <input type="text" class="form-control" id="calle"
@@ -44,11 +47,10 @@
 
                 <button type="submit" class="btn btn-danger" id="btn-add-new-student">Guardar</button>
             </form>
-            <div id="response" style="display:none; margin-top:10px">
+            <div id="response" style="display:none; margin-top:24px">
             </div>
         </div>
     </div>
 </div>
-
 </body>
 </html>

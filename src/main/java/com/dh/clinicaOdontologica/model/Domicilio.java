@@ -4,12 +4,17 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.Set;
 import javax.persistence.*;
+
+import static javax.persistence.GenerationType.SEQUENCE;
+
 @Entity
 @Table(name="domicilios")
 
 public class Domicilio {
     @Id
-    @GeneratedValue
+    @SequenceGenerator(name="domicilio_id",sequenceName="domicilio_id")
+    @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="domicilio_id")
+
     private Long id;
     private String calle;
     private int numero;

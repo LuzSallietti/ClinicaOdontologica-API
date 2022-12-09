@@ -5,6 +5,7 @@ import com.dh.clinicaOdontologica.dto.TurnoDTO;
 import com.dh.clinicaOdontologica.model.Turno;
 import com.dh.clinicaOdontologica.repository.ITurnoRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,48 +18,44 @@ import java.util.Set;
 public class TurnoService implements ITurnoService{
     @Autowired
     private ITurnoRepository turnoRepository;
-    @Autowired
-    ObjectMapper mapper;
+    private final static Logger logger = Logger.getLogger(DomicilioService.class);
 
-    private void guardarTurno(TurnoDTO turnoDTO){
-        Turno turno = mapper.convertValue(turnoDTO, Turno.class);
-        turnoRepository.save(turno);
+
+    @Override
+    public Turno crearTurno(Turno turno) {
+        logger.info("SAVING TURNO: " + turno);
+        return turnoRepository.save(turno);
     }
 
     @Override
-    public void crearTurno(TurnoDTO turnoDTO) {
-        guardarTurno(turnoDTO);
-    }
-
-    @Override
-    public TurnoDTO recuperarTurno(Long id) {
+    public Optional<Turno> recuperarTurno(Long id) {
         Optional<Turno> turno= turnoRepository.findById(id);
-        TurnoDTO turnoDTO = null;
+
         if(turno.isPresent()){
-            turnoDTO = mapper.convertValue(turno, TurnoDTO.class);
+            logger.info("GETTING TURNO BY ID : "+id + " = " + turno);
+            return turno;
+        } else {
+            return null;
         }
-        return turnoDTO;
+
     }
 
     @Override
-    public void modificarTurno(TurnoDTO turnoDTO) {
-        guardarTurno(turnoDTO);
+    public Turno modificarTurno(Turno turno) {
+        logger.info("UPDATING TURNO: " + turno);
+        return turnoRepository.save(turno);
     }
 
     @Override
     public void eliminarTurno(Long id) {
+        logger.info("DELETING TURNO id: " + id);
         turnoRepository.deleteById(id);
-
     }
 
     @Override
-    public Set<TurnoDTO> listarTurnos() {
+    public List<Turno> listarTurnos() {
         List<Turno> turnos = turnoRepository.findAll();
-        Set<TurnoDTO> turnoDTOS = new HashSet<>();
-
-        for (Turno turno : turnos) {
-            turnoDTOS.add(mapper.convertValue(turno, TurnoDTO.class));
-        }
-        return turnoDTOS;
+        logger.info("GETTING ALL TURNOS: " + turnos);
+        return turnos;
     }
 }

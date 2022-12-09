@@ -4,7 +4,7 @@ package com.dh.clinicaOdontologica.service;
 import com.dh.clinicaOdontologica.dto.PacienteDTO;
 import com.dh.clinicaOdontologica.model.Paciente;
 import com.dh.clinicaOdontologica.repository.IPacienteRepository;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,50 +15,46 @@ import java.util.*;
 public class PacienteService implements IPacienteService {
     @Autowired
     private IPacienteRepository pacienteRepository;
+    private final static Logger logger = Logger.getLogger(PacienteService.class);
 
-    @Autowired
-    ObjectMapper mapper;
 
-    private void guardarPaciente(PacienteDTO pacienteDTO){
-        Paciente paciente = mapper.convertValue(pacienteDTO, Paciente.class);
-        pacienteRepository.save(paciente);
+
+    @Override
+    public Paciente crearPaciente(Paciente paciente) {
+        logger.info("SAVING PACIENTE: " + paciente);
+        return pacienteRepository.save(paciente);
     }
 
     @Override
-    public void crearPaciente(PacienteDTO pacienteDTO) {
-        guardarPaciente(pacienteDTO);
-    }
-
-    @Override
-    public PacienteDTO recuperarPaciente(Long id) {
+    public Optional <Paciente> recuperarPaciente(Long id) {
         Optional<Paciente> paciente= pacienteRepository.findById(id);
-        PacienteDTO pacienteDTO = null;
         if(paciente.isPresent()){
-            pacienteDTO = mapper.convertValue(paciente, PacienteDTO.class);
+            logger.info("GETTING PACIENTE BY ID : "+id + " = " + paciente);
+            return paciente;
+        } else {
+            return null;
         }
-        return pacienteDTO;
+
 
     }
 
     @Override
-    public void modificarPaciente(PacienteDTO pacienteDTO) {
-        guardarPaciente(pacienteDTO);
+    public Paciente modificarPaciente(Paciente paciente) {
+        logger.info("UPDATING PACIENTE: " + paciente);
+        return pacienteRepository.save(paciente);
 
     }
 
     @Override
     public void eliminarPaciente(Long id) {
         pacienteRepository.deleteById(id);
+        logger.info("DELETING PACIENTE id: " + id);
     }
 
     @Override
-    public Set<PacienteDTO> listarPacientes() {
+    public List<Paciente> listarPacientes() {
         List<Paciente> pacientes = pacienteRepository.findAll();
-        Set<PacienteDTO> pacienteDTOS = new HashSet<>();
-
-        for (Paciente paciente : pacientes) {
-            pacienteDTOS.add(mapper.convertValue(paciente, PacienteDTO.class));
-        }
-        return pacienteDTOS;
+        logger.info("GETTING ALL PACIENTES: " + pacientes);
+        return pacientes;
     }
 }

@@ -1,7 +1,7 @@
 package com.dh.clinicaOdontologica.service;
 
 import com.dh.clinicaOdontologica.GlobalExceptionHandler;
-import com.dh.clinicaOdontologica.dto.DomicilioDTO;
+
 import com.dh.clinicaOdontologica.model.Domicilio;
 import com.dh.clinicaOdontologica.repository.IDomicilioRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -9,10 +9,10 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
+
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
+
 
 @Service
 public class DomicilioService implements IDomicilioService {
@@ -23,31 +23,26 @@ public class DomicilioService implements IDomicilioService {
     @Autowired
     ObjectMapper mapper;
 
-    private void guardarDomicilio(DomicilioDTO domicilioDTO){
-        Domicilio domicilio = mapper.convertValue(domicilioDTO, Domicilio.class);
-        domicilioRepository.save(domicilio);
-        logger.info("SAVING DOMICILIO: " + domicilioDTO);
+
+    @Override
+    public Domicilio crearDomicilio(Domicilio domicilio) {
+        logger.info("SAVING DOMICILIO: " + domicilio);
+        return domicilioRepository.save(domicilio);
     }
 
     @Override
-    public void crearDomicilio(DomicilioDTO domicilioDTO) {
-        guardarDomicilio(domicilioDTO);
-    }
-
-    @Override
-    public DomicilioDTO recuperarDomicilio(Long id) {
+    public Optional<Domicilio> recuperarDomicilio(Long id) {
         Optional<Domicilio> domicilio= domicilioRepository.findById(id);
-        DomicilioDTO domicilioDTO = null;
         if(domicilio.isPresent()){
-            domicilioDTO = mapper.convertValue(domicilio, DomicilioDTO.class);
-            logger.info("GETTING DOMICILIO BY ID : "+id + " = " + domicilioDTO);
+            logger.info("GETTING DOMICILIO BY ID : "+id + " = " + domicilio);
         }
-        return domicilioDTO;
+        return domicilio;
     }
 
     @Override
-    public void modificarDomicilio(DomicilioDTO domicilioDTO) {
-        guardarDomicilio(domicilioDTO);
+    public Domicilio modificarDomicilio(Domicilio domicilio) {
+        logger.info("UPDATING DOMICILIO: " + domicilio);
+        return domicilioRepository.save(domicilio);
     }
 
     @Override
@@ -58,14 +53,10 @@ public class DomicilioService implements IDomicilioService {
     }
 
     @Override
-    public Set<DomicilioDTO> listarDomicilios() {
+    public List<Domicilio> listarDomicilios() {
         List<Domicilio> domicilios = domicilioRepository.findAll();
-        Set<DomicilioDTO> domicilioDTOS = new HashSet<>();
 
-        for (Domicilio domicilio : domicilios) {
-            domicilioDTOS.add(mapper.convertValue(domicilio, DomicilioDTO.class));
-        }
-        logger.info("GETTING ALL DOMICILIOS: " + domicilioDTOS);
-        return domicilioDTOS;
+        logger.info("GETTING ALL DOMICILIOS: " + domicilios);
+        return domicilios;
     }
 }

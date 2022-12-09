@@ -10,7 +10,8 @@ import javax.persistence.*;
 @Table(name = "odontologos")
 public class Odontologo {
     @Id
-    @GeneratedValue
+    @SequenceGenerator(name="odontologo_id",sequenceName="odontologo_id")
+    @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="odontologo_id")
     private Long id;
     private String nombre;
     private String apellido;

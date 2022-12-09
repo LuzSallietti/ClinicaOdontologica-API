@@ -31,6 +31,7 @@ class OdontologoServiceTest {
     void AcrearUnOdontologo(){
 
         odontologoService.crearOdontologo(odontologo);
+        assertTrue(odontologoService.listarOdontologos().size()>0);
 
     }
 

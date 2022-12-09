@@ -4,12 +4,14 @@ import com.dh.clinicaOdontologica.dto.DomicilioDTO;
 import com.dh.clinicaOdontologica.dto.TurnoDTO;
 import com.dh.clinicaOdontologica.model.Turno;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 public interface ITurnoService {
-    void crearTurno(TurnoDTO turnoDTO);
-    TurnoDTO recuperarTurno(Long id);
-    void modificarTurno(TurnoDTO turnoDTO);
+    Turno crearTurno(Turno turno);
+    Optional <Turno> recuperarTurno(Long id);
+    Turno modificarTurno(Turno turno);
     void eliminarTurno(Long id);
-    Set<TurnoDTO> listarTurnos();
+    List<Turno> listarTurnos();
 }

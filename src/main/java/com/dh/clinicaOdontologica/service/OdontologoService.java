@@ -17,37 +17,33 @@ public class OdontologoService implements IOdontologoService {
     private IOdontologoRepository odontologoRepository;
     private final static Logger logger = Logger.getLogger(DomicilioService.class);
 
-    //inyectar el Mapper
-    @Autowired
-    ObjectMapper mapper;
 
-//metodo reutilizable para CREAR y MODIFICAR
-    private void guardarOdontologo(OdontologoDTO odontologoDTO){
-        Odontologo odontologo = mapper.convertValue(odontologoDTO, Odontologo.class);
-        odontologoRepository.save(odontologo);
-        logger.info("SAVING ODONTOLOGO: " + odontologoDTO);
+
+
+    @Override
+    public Odontologo crearOdontologo(Odontologo odontologo) {
+        logger.info("SAVING ODONTOLOGO: " + odontologo);
+        return odontologoRepository.save(odontologo);
     }
 
     @Override
-    public void crearOdontologo(OdontologoDTO odontologoDTO) {
-        guardarOdontologo(odontologoDTO);
-    }
-
-    @Override
-    public OdontologoDTO recuperarOdontologo(Long id) {
+    public Optional <Odontologo> recuperarOdontologo(Long id) {
         Optional<Odontologo> odontologo= odontologoRepository.findById(id);
-        OdontologoDTO odontologoDTO = null;
+
         if(odontologo.isPresent()){
-            odontologoDTO = mapper.convertValue(odontologo, OdontologoDTO.class);
-            logger.info("GETTING ODONTOLOGO BY ID : "+id + " = " + odontologoDTO);
+            logger.info("GETTING ODONTOLOGO BY ID : "+id + " = " + odontologo);
+            return odontologo;
+        } else {
+            return null;
         }
-        return odontologoDTO;
+
     }
 
 
     @Override
-    public void modificarOdontologo(OdontologoDTO odontologoDTO) {
-        guardarOdontologo(odontologoDTO);
+    public Odontologo modificarOdontologo(Odontologo odontologo) {
+        logger.info("UPDATING ODONTOLOGO: " + odontologo);
+        return odontologoRepository.save(odontologo);
     }
 
     @Override
@@ -57,14 +53,9 @@ public class OdontologoService implements IOdontologoService {
     }
 
     @Override
-    public Set<OdontologoDTO> listarOdontologos() {
+    public List<Odontologo> listarOdontologos() {
         List<Odontologo> odontologos = odontologoRepository.findAll();
-        Set<OdontologoDTO> odontologoDTOS = new HashSet<>();
-
-        for (Odontologo odontologo : odontologos) {
-            odontologoDTOS.add(mapper.convertValue(odontologo, OdontologoDTO.class));
-        }
-        logger.info("GETTING ALL ODONTOLOGOS: " + odontologoDTOS);
-        return odontologoDTOS;
+        logger.info("GETTING ALL ODONTOLOGOS: " + odontologos);
+        return odontologos;
     }
 }

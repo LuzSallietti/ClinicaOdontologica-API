@@ -1,8 +1,6 @@
 package com.dh.clinicaOdontologica.controller;
 
 
-import com.dh.clinicaOdontologica.dto.DomicilioDTO;
-import com.dh.clinicaOdontologica.dto.TurnoDTO;
 import com.dh.clinicaOdontologica.model.Turno;
 import com.dh.clinicaOdontologica.service.ITurnoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/turnos")
@@ -19,32 +18,43 @@ public class TurnoController {
     ITurnoService turnoService;
 
     @GetMapping("/{id}")
-    public TurnoDTO recuperarTurno(@PathVariable Long id){
-        return turnoService.recuperarTurno(id);
+    public ResponseEntity<Turno> recuperarTurno(@PathVariable Long id){
+        Turno turno = turnoService.recuperarTurno(id).orElse(null);
+        return new ResponseEntity<>(turno, HttpStatus.OK);
     }
 
     @GetMapping
-    public Collection<TurnoDTO> listarTurnos(){
-        return turnoService.listarTurnos();
+    public ResponseEntity<List<Turno>> listarTurnos(){
+        return new ResponseEntity(turnoService.listarTurnos(), HttpStatus.OK);
     }
 
 
     @PostMapping
-    public ResponseEntity<?> crearTurno(@RequestBody TurnoDTO turnoDTO){
-        turnoService.crearTurno(turnoDTO);
-        return ResponseEntity.ok(HttpStatus.CREATED);
+    public ResponseEntity<Turno> crearTurno(@RequestBody Turno turno){
+        return new ResponseEntity(turnoService.crearTurno(turno),HttpStatus.CREATED);
 
     }
 
     @PutMapping
-    public ResponseEntity<?> modificarTurno(@RequestBody TurnoDTO turnoDTO){
-        turnoService.modificarTurno(turnoDTO);
-        return ResponseEntity.ok(HttpStatus.OK);
+    public ResponseEntity<Turno> modificarTurno(@RequestBody Turno turno){
+        ResponseEntity response = null;
+        if(turno.getId() != null && turnoService.recuperarTurno(turno.getId()).isPresent()){
+            response = ResponseEntity.ok(turnoService.modificarTurno(turno));
+        } else {
+            response = ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        return response;
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> eliminarTurno(@PathVariable Long id){
-        turnoService.eliminarTurno(id);
-        return ResponseEntity.ok(HttpStatus.OK);
+    public ResponseEntity<String> eliminarTurno(@PathVariable Long id){
+        ResponseEntity response = null;
+        if(turnoService.recuperarTurno(id).isPresent()) {
+            turnoService.eliminarTurno(id);
+            response = ResponseEntity.status(HttpStatus.OK).body("Eliminado");
+        } else {
+            response = ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        };
+        return response;
     }
 }

@@ -5,12 +5,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.time.LocalDate;
 import java.util.Set;
 import javax.persistence.*;
+
 @Entity
 @Table(name="pacientes")
 
 public class Paciente {
     @Id
-    @GeneratedValue
+    @SequenceGenerator(name="paciente_id",sequenceName="paciente_id")
+    @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="paciente_id")
     private Long id;
     private String nombre;
     private String apellido;
@@ -18,7 +20,7 @@ public class Paciente {
     private String email;
     private LocalDate fechaAlta;
 
-    //el Paciente tiene un domicilio en una relacion bidireccional?
+    //el Paciente tiene un domicilio en una relacion bidireccional
     @ManyToOne
     @JoinColumn(name="domicilio_id", nullable = false)
     private Domicilio domicilio;

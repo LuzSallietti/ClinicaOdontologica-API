@@ -20,32 +20,45 @@ public class PacienteController {
     IPacienteService pacienteService;
 
     @GetMapping("/{id}")
-    public PacienteDTO recuperarPaciente(@PathVariable Long id){
-        return pacienteService.recuperarPaciente(id);
+    public ResponseEntity<Paciente> recuperarPaciente(@PathVariable Long id){
+        Paciente paciente = pacienteService.recuperarPaciente(id).orElse(null);
+        return new ResponseEntity<>(paciente, HttpStatus.OK);
     }
     @GetMapping
-    public Collection<PacienteDTO> listarPacientes(){
-        return pacienteService.listarPacientes();
+    public ResponseEntity<List<Paciente>> listarPacientes(){
+        return new ResponseEntity<>(pacienteService.listarPacientes(), HttpStatus.OK);
     }
 
 
     @PostMapping
-    public ResponseEntity<?> crearPaciente(@RequestBody PacienteDTO pacienteDTO){
-        pacienteService.crearPaciente(pacienteDTO);
-        return ResponseEntity.ok(HttpStatus.CREATED);
+    public ResponseEntity<Paciente> crearPaciente(@RequestBody Paciente paciente){
+
+        return new ResponseEntity<>(pacienteService.crearPaciente(paciente), HttpStatus.CREATED);
 
     }
 
     @PutMapping
-    public ResponseEntity<?> modificarPaciente(@RequestBody PacienteDTO pacienteDTO){
-        pacienteService.modificarPaciente(pacienteDTO);
-        return ResponseEntity.ok(HttpStatus.OK);
+    public ResponseEntity<Paciente> modificarPaciente(@RequestBody Paciente paciente){
+        ResponseEntity response = null;
+        if(paciente.getId() != null && pacienteService.recuperarPaciente(paciente.getId()).isPresent()){
+            response = ResponseEntity.ok(pacienteService.modificarPaciente(paciente));
+        } else {
+            response = ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        return response;
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> eliminarPaciente(@PathVariable Long id){
-        pacienteService.eliminarPaciente(id);
-        return ResponseEntity.ok(HttpStatus.OK);
+    public ResponseEntity<String> eliminarPaciente(@PathVariable Long id){
+        ResponseEntity response = null;
+        if(pacienteService.recuperarPaciente(id).isPresent()) {
+            pacienteService.eliminarPaciente(id);
+            response = ResponseEntity.status(HttpStatus.OK).body("Eliminado");
+        } else {
+            response = ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        };
+
+        return response;
     }
 
 

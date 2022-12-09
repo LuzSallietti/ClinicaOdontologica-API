@@ -10,7 +10,8 @@ import javax.persistence.*;
 
 public class Turno {
     @Id
-    @GeneratedValue
+    @SequenceGenerator(name="turno_id",sequenceName="turno_id")
+    @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="turno_id")
     private Long id;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="paciente_id", nullable = false)

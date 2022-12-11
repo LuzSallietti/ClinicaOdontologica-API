@@ -4,11 +4,9 @@ const deleteBy = (id) => {
               method: 'DELETE'
           }
           fetch(url,settings)
-          .then(response => response.json())
-          .then(data => {
-            console.log(data)          
+          .then(response => {
           let row_id = "#tr-" + id;
           document.querySelector(row_id).remove();
           })
-          .catch(error => alert("¡No se puede eliminar! Este domicilio tiene pacientes asociados."));
+          .catch(error => alert(error));
 }

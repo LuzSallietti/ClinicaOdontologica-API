@@ -27,6 +27,13 @@ public class Odontologo {
         this.apellido = apellido;
         this.matricula = matricula;
     }
+
+    public Odontologo(String nombre, String apellido, Integer matricula) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.matricula = matricula;
+    }
+
     public Odontologo(){
 
     }
@@ -40,7 +47,7 @@ public class Odontologo {
         return nombre;
     }
 
-    //no uso los setters por ahora, pero se usaran para realizar modificaciones de los registros
+    //se usan para realizar modificaciones de los registros
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }

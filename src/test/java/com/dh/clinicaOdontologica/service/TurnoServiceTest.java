@@ -1,72 +1,65 @@
 package com.dh.clinicaOdontologica.service;
 
-import com.dh.clinicaOdontologica.dto.OdontologoDTO;
-import com.dh.clinicaOdontologica.dto.PacienteDTO;
-import com.dh.clinicaOdontologica.dto.TurnoDTO;
 import com.dh.clinicaOdontologica.model.Domicilio;
+import com.dh.clinicaOdontologica.model.Odontologo;
 import com.dh.clinicaOdontologica.model.Paciente;
-import org.junit.Assert;
-import org.junit.FixMethodOrder;
+import com.dh.clinicaOdontologica.model.Turno;
+import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.MethodSorters;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
-@RunWith(SpringRunner.class)
+
 @SpringBootTest
+@TestMethodOrder(MethodOrderer.MethodName.class)
 class TurnoServiceTest {
+    @Autowired
+    private DomicilioService domicilioService;
     @Autowired
     private PacienteService pacienteService;
     @Autowired
-    private OdontologoService odontologoService;
-    @Autowired
     private TurnoService turnoService;
+    @Autowired
+    private OdontologoService odontologoService;
 
-    public void cargarDataSet() {
-      /*  Domicilio domicilio = new Domicilio(1L,"Los Alamos", 2020,"Las Varas", "Cordoba");
-        PacienteDTO paciente = new PacienteDTO();
-        paciente.setNombre("Laura");
-        paciente.setApellido("Olmos");
-        paciente.setDni(30256456);
-        paciente.setEmail("laura@mail.com");
-        paciente.setFechaAlta(LocalDate.of(2022,12,12));
-        paciente.setDomicilio(domicilio);
-        pacienteService.crearPaciente(paciente);
-        OdontologoDTO odontologo = new OdontologoDTO();
-        odontologo.setNombre("Aldo");
-        odontologo.setApellido("Perez");
-        odontologo.setMatricula(2569);
-        odontologoService.crearOdontologo(odontologo);*/
+    private static Turno turno;
 
-    }
-    @Test
-    void crearTurno() {
-       /* this.cargarDataSet();
-        turnoService.crearTurno(new TurnoDTO(pacienteService.recuperarPaciente(1L).getId(),odontologoService.recuperarOdontologo(1L).getId(),LocalDate.of(2022,12,12),"12:30"));
-        Assert.assertNotNull(turnoService.buscar(1));*/
+
+    public void cargarData() {
+        Domicilio domicilio = new Domicilio("Av Cerrito", 589, "CABA", "Buenos Aires");
+        domicilioService.crearDomicilio(domicilio);
+
+        Paciente paciente = pacienteService.crearPaciente(new Paciente("Lorena", "Holms",12853879, "lorena@mail.com", LocalDate.of(2022,12,12),domicilio));
+
+        Odontologo odontologo = odontologoService.crearOdontologo(new Odontologo("Lisa", "Simpson", 2345));
+
+        turno = new Turno(paciente, odontologo,LocalDate.of(2022,12,12), "17:00");
 
     }
 
     @Test
-    void recuperarTurno() {
+    void AcrearTurno() {
+        cargarData();
+        assertNotNull(turnoService.crearTurno(turno));
     }
 
     @Test
-    void modificarTurno() {
+    void BrecuperarTurno() {
+        assertTrue(turnoService.recuperarTurno(1L) != null);
     }
 
     @Test
-    void eliminarTurno() {
+    void DeliminarTurno() {
+        turnoService.eliminarTurno(1L);
+        assertNull(turnoService.recuperarTurno(1L));
     }
 
     @Test
-    void listarTurnos() {
+    void ClistarTurnos() {
+        assertTrue(turnoService.listarTurnos() != null);
     }
 }

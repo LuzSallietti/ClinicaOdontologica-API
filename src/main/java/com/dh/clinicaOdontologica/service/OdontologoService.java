@@ -28,15 +28,8 @@ public class OdontologoService implements IOdontologoService {
 
     @Override
     public Optional <Odontologo> recuperarOdontologo(Long id) {
-        Optional<Odontologo> odontologo= odontologoRepository.findById(id);
-
-        if(odontologo.isPresent()){
-            logger.info("GETTING ODONTOLOGO BY ID : "+id + " = " + odontologo);
-            return odontologo;
-        } else {
-            return null;
-        }
-
+        logger.info("GETTING ODONTOLOGO BY ID : "+id );
+        return odontologoRepository.findById(id);
     }
 
 

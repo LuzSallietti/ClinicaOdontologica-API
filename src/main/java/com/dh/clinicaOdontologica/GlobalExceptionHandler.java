@@ -14,6 +14,5 @@ public class GlobalExceptionHandler {
     public ResponseEntity<?> todosErrores(Exception exc, WebRequest req){
         logger.error(exc.getMessage());
         return new ResponseEntity<>("Error: " + exc.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-
     }
 }

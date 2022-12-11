@@ -1,11 +1,7 @@
 package com.dh.clinicaOdontologica.service;
 
-import com.dh.clinicaOdontologica.dto.DomicilioDTO;
-import com.dh.clinicaOdontologica.dto.OdontologoDTO;
-import com.dh.clinicaOdontologica.dto.PacienteDTO;
 import com.dh.clinicaOdontologica.model.Domicilio;
 import com.dh.clinicaOdontologica.model.Paciente;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
@@ -14,78 +10,44 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
-@SpringBootTest
 
+@SpringBootTest
 @TestMethodOrder(MethodOrderer.MethodName.class)
 class PacienteServiceTest {
     @Autowired
-    private PacienteService pacienteService;
-    @Autowired
     private DomicilioService domicilioService;
+    @Autowired
+    private PacienteService pacienteService;
 
-    private static PacienteDTO pacienteDTO;
-    private static DomicilioDTO domicilioDTO;
-    private static Domicilio domicilionormal;
-
-
-    @BeforeAll
-    public static void crearData(){
-        domicilioDTO = new DomicilioDTO();
-        domicilioDTO.setId(1L);
-        domicilioDTO.setCalle("Los Naranjos");
-        domicilioDTO.setNumero(434);
-        domicilioDTO.setLocalidad("Las Varas");
-        domicilioDTO.setProvincia("Cordoba");
-
-        domicilionormal = new Domicilio();
-        domicilionormal.setId(1L);
-        domicilionormal.setCalle("Los Naranjos");
-        domicilionormal.setNumero(434);
-        domicilionormal.setLocalidad("Las Varas");
-        domicilionormal.setProvincia("Cordoba");
-
-
-
-
-        pacienteDTO = new PacienteDTO();
-        pacienteDTO.setNombre("Luz");
-        pacienteDTO.setApellido("Sallietti");
-        pacienteDTO.setDni(30303567);
-        pacienteDTO.setEmail("luz@mail.com");
-        pacienteDTO.setFechaAlta(LocalDate.of(2022,12,12));
-        pacienteDTO.setDomicilio(domicilionormal);
+    public void cargarData() {
+        Domicilio domicilio = new Domicilio("Av Cerrito", 589, "CABA", "Buenos Aires");
+        domicilioService.crearDomicilio(domicilio);
+        Paciente p = pacienteService.crearPaciente(new Paciente("Lorena", "Holms",12853879, "lorena@mail.com", LocalDate.of(2022,12,12),domicilio));
 
     }
 
-
-    @Test
-    void AcrearDomicilio() {
-
-        domicilioService.crearDomicilio(domicilioDTO);
-
-    }
-    @Test
-    void BcrearPaciente() {
-        /*pacienteService.crearPaciente(paciente);*/
+   @Test
+    void AcrearPaciente() {
+        cargarData();
+       assertNotNull(pacienteService.recuperarPaciente(1L));
     }
 
     @Test
     void CrecuperarPaciente() {
-        System.out.println(pacienteService.listarPacientes());
-        pacienteService.listarPacientes();
+        assertTrue(pacienteService.recuperarPaciente(1L) != null);
     }
 
     @Test
-    void modificarPaciente() {
+    void DeliminarPaciente() {
+        pacienteService.eliminarPaciente(1L);
+        assertNull(pacienteService.recuperarPaciente(1L));
     }
 
     @Test
-    void eliminarPaciente() {
-    }
-
-    @Test
-    void listarPacientes() {
+    void BlistarPacientes() {
+        assertTrue(pacienteService.listarPacientes() != null);
     }
 }

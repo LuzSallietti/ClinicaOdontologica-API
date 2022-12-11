@@ -48,14 +48,10 @@ public class OdontologoController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> eliminarOdontologo(@PathVariable Long id){
-        ResponseEntity response = null;
-        if(odontologoService.recuperarOdontologo(id).isPresent()) {
-           odontologoService.eliminarOdontologo(id);
-            response = ResponseEntity.status(HttpStatus.OK).body("Eliminado");
-        } else {
-            response = ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        };
+    public ResponseEntity<?> eliminarOdontologo(@PathVariable Long id){
+        ResponseEntity<String> response = null;
+        odontologoService.eliminarOdontologo(id);
+        response = ResponseEntity.status(HttpStatus.OK).body("Eliminado");
         return response;
     }
 

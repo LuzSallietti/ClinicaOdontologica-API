@@ -44,6 +44,15 @@ public class Paciente {
         this.fechaAlta = fechaAlta;
     }
 
+    public Paciente(String nombre, String apellido, int dni, String email, LocalDate fechaAlta, Domicilio domicilio) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.dni = dni;
+        this.email = email;
+        this.fechaAlta = fechaAlta;
+        this.domicilio = domicilio;
+    }
+
     public Long getId() {
         return id;
     }
@@ -118,6 +127,7 @@ public class Paciente {
                 ", dni=" + dni +
                 ", email='" + email + '\'' +
                 ", fechaAlta=" + fechaAlta +
+                ", domicilio=" + domicilio +
                 '}';
     }
 }
